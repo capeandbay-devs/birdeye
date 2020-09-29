@@ -38,7 +38,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CapeAndBay\\BirdEye\\BirdEyeServiceProvider"
+                "CapeAndBay\\BirdEye\\CBBirdEyeServiceProvider"
             ],
             "aliases": {
                 "BirdEye": "CapeAndBay\\BirdEye\\Facades\\BirdEye"
