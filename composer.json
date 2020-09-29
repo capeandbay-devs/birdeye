@@ -1,0 +1,50 @@
+{
+    "name": "capeandbay/birdeye",
+    "description": "Client-side SDK Package for Laravel that integrates with the BirdEye REST API",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Angel Gonzalez",
+            "email": "angel@capeandbay.com",
+            "homepage": "https://capeandbay.com"
+        }
+    ],
+    "homepage": "https://github.com/capeandbay/birdeye",
+    "keywords": ["Laravel", "BirdEye", "Cape & Bay", "Customer Experience"],
+    "require": {
+        "illuminate/support": "~6|~7|~8",
+        "ixudra/curl": "^6.19",
+        "goldspecdigital/laravel-eloquent-uuid": "^6.0|^7.0",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3|~4",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CapeAndBay\\BirdEye\\": "src"
+        },
+        "classmap": [
+            "src/Console/Commands",
+            "src/Actions",
+            "src/Jobs"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CapeAndBay\\Shipyard\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CapeAndBay\\Shipyard\\ShipyardServiceProvider"
+            ],
+            "aliases": {
+                "Shipyard": "CapeAndBay\\Shipyard\\Facades\\Shipyard"
+            }
+        }
+    }
+}

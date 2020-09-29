@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePushNotificationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::connection(config('shipyard.push_notifications.db_connection'))
+            ->create('birdeye_businesses', function (Blueprint $table) {
+            $table->uuid('id')->unique()->primary();
+            $table->string('business_id')->nullable();
+            $table->string('parent_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('alias')->nullable();
+            $table->text('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('status')->nullable();
+            $table->string('be_created_on')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('child_count')->default(0);
+            $table->unsignedBigInteger('users_sent')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::connection(config('birdeye.db_connection'))->dropIfExists('birdeye_businesses');
+    }
+}
