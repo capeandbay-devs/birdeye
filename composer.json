@@ -32,16 +32,16 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CapeAndBay\\Shipyard\\Tests\\": "tests"
+            "CapeAndBay\\BirdEye\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "CapeAndBay\\Shipyard\\ShipyardServiceProvider"
+                "CapeAndBay\\BirdEye\\BirdEyeServiceProvider"
             ],
             "aliases": {
-                "Shipyard": "CapeAndBay\\Shipyard\\Facades\\Shipyard"
+                "BirdEye": "CapeAndBay\\BirdEye\\Facades\\BirdEye"
             }
         }
     }
