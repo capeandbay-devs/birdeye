@@ -50,7 +50,9 @@ class CBBirdEyeServiceProvider extends ServiceProvider
         }
 
         // Registering package commands.
-        // $this->commands([]);
+        $this->commands([
+            \CapeAndBay\BirdEye\Console\Commands\ImportChildBusinessesCommand::class
+        ]);
     }
 
     /**
