@@ -27,9 +27,7 @@
             "CapeAndBay\\BirdEye\\": "src"
         },
         "classmap": [
-            "src/Console/Commands",
-            "src/Actions",
-            "src/Jobs"
+            "src/Console/Commands"
         ]
     },
     "autoload-dev": {
