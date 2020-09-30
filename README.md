@@ -153,6 +153,25 @@ To use the trait, peep this example and adapt -
 
 ## Usage
 ### Check an EndUser Customer into a business
+```php
+
+<?php
+    use App\StoreLocation; //Uses HasBirdEyeBusiness trait attached
+    use CapeAndBay\BirdEye\Facades\BirdEye;
+
+    $location = StoreLocation::find(1);
+    $business = $location->birdeye_business()->first();
+    $payload = [
+       'name' => 'Some Name',
+       'emailId' => 'someName@test.com',
+       'phone' => '5555551212',
+       'smsEnabled' => '1',
+   ];
+    $birdeye_customer = BirdEye::get('customer', $business->business_id);
+    $checkin_response = $birdeye_customer->checkin($payload);
+
+    return $checkin_response;
+```
 
 
 ## Change log
