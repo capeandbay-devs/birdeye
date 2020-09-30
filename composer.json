@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/capeandbay/birdeye",
-    "keywords": ["Laravel", "BirdEye", "Cape & Bay", "Customer Experience"],
+    "keywords": ["Laravel", "BirdEye", "Cape and Bay", "Customer Experience"],
     "require": {
         "illuminate/support": "~6|~7|~8",
         "ixudra/curl": "^6.19",
