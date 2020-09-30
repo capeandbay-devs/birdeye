@@ -2,6 +2,7 @@
 
 namespace CapeAndBay\BirdEye\Services;
 
+use CapeAndBay\BirdEye\Models\BirdEyeBusinesses;
 use Illuminate\Support\Facades\Log;
 use Ixudra\Curl\Facades\Curl;
 
@@ -33,6 +34,13 @@ class BirdEyeAPIClientService
             if(array_key_exists($account, config('birdeye.accounts')))
             {
                 $this->parent_business_id = config("birdeye.accounts.{$account}");
+            }
+            else
+            {
+                if(!is_null(BirdEyeBusinesses::whereBusinessId($account)->first()))
+                {
+                    $this->parent_business_id = $account;
+                }
             }
         }
 
