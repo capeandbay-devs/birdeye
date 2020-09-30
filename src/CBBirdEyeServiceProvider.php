@@ -2,6 +2,7 @@
 
 namespace CapeAndBay\BirdEye;
 
+use CapeAndBay\BirdEye\Services\LibraryService;
 use Illuminate\Support\ServiceProvider;
 
 class CBBirdEyeServiceProvider extends ServiceProvider
@@ -66,7 +67,8 @@ class CBBirdEyeServiceProvider extends ServiceProvider
 
         // Register the service the package provides.
         $this->app->singleton('birdeye', function ($app) {
-            return new BirdEye();
+            $lib = new LibraryService();
+            return new BirdEye($lib);
         });
     }
 
