@@ -24,7 +24,6 @@ class CreateBirdeyeBusinessesTable extends Migration
             $table->string('be_created_on')->nullable();
             $table->string('type')->nullable();
             $table->integer('child_count')->default(0);
-            $table->unsignedBigInteger('users_sent')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->string('internal_id')->nullable();

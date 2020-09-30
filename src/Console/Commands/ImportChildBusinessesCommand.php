@@ -4,6 +4,7 @@ namespace CapeAndBay\BirdEye\Console\Commands;
 
 use CapeAndBay\BirdEye\Facades\BirdEye;
 use CapeAndBay\BirdEye\Library\Business;
+use CapeAndBay\BirdEye\Models\BirdEyeBusinesses;
 
 class ImportChildBusinessesCommand extends BaseCommand
 {
@@ -24,15 +25,19 @@ class ImportChildBusinessesCommand extends BaseCommand
     public $cron_name = 'Child Account Migration Cron';
     public $cron_log = 'birdeye-business-import-command-log';
 
+    protected $businesses_model;
+
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(BirdEyeBusinesses $businesses)
     {
         $this->start = microtime(true);
         parent::__construct();
+
+        $this->businesses_model = $businesses;
     }
 
     /**
@@ -48,7 +53,7 @@ class ImportChildBusinessesCommand extends BaseCommand
         if(count($accounts) > 0)
         {
             // foreach account
-            foreach($accounts as $name => $business_id)
+            foreach($accounts as $name => $parent_id)
             {
                 $this->info('Processing '.$name);
                 $business_model = BirdEye::get('business', $name);
@@ -59,11 +64,38 @@ class ImportChildBusinessesCommand extends BaseCommand
                 if(count($businesses) > 0)
                 {
                     $this->info('BirdEye returned '.count($businesses).' children for '.$name.'  - '. json_encode($businesses));
-                    /**
-                     * STEPS
-                     * 4. Save or Update the business data
-                     * 5. Move on.
-                     */
+
+                    foreach ($businesses as $business)
+                    {
+                        //DB Storage
+                        if(array_key_exists('createdOn', $business))
+                        {
+                            $business['be_created_on'] = $business['createdOn'];
+                            unset($business['createdOn']);
+                        }
+
+                        if(array_key_exists('childCount', $business))
+                        {
+                            $business['child_count'] = $business['childCount'];
+                            unset($business['childCount']);
+                        }
+
+                        $business['parent_id'] = $parent_id;
+                        $business['business_id'] = $business['id'];
+                        unset($business['id']);
+
+                        if(!($saved_record = $this->businesses_model->findByBusinessId($business['id'])))
+                        {
+                            // Save the business data
+                            $saved_record = new $this->businesses_model($business);
+                            $saved_record->save();
+                        }
+                        else
+                        {
+                            // Update the business data
+                            $saved_record->update($business);
+                        }
+                    }
                 }
                 else
                 {
