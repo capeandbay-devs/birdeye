@@ -15,9 +15,15 @@ but it may also help you or be a good reference for your own implementation.
 
 ### Quick Links
 1. [Installation](#Installation)
-2. Seed the Database
-3. Using the Trait
-4. Usage
+    - [Configuration](#Configuration)
+2. [Seed the Database](#migrate-the-child-business-data)
+3. [Using the Trait](#using-the-trait)
+4. [Usage](#Usage)
+    - [Check In](#check-an-enduser-customer-into-a-business) 
+5. [Change Log](#change-log)
+6. [Contributing](#contributing)
+7. [Security](#security)
+8. [License](#License)
 
 ### Installation
 
@@ -73,7 +79,23 @@ return [
 Note that you can always swap out preloaded classes with a project's arbitrary own; 
 the package will use that class in that context.
 
-## Usage
+#### Using Multiple Accounts
+To use multiple accounts, leave `config('birdeye.deets.parent_business_id)` blank.
+Instead, populate `config('birdeye.accounts)` like the following example
+
+```php
+<?php
+
+return [
+    // Other configs left out for brevity
+    'accounts' => [
+        'client-a' => env('BIRD_EYE_CLIENT_A_KEY', 'something'),
+        'client-b' => 'some-token'
+    ],
+];
+```
+Finally, run the cron `php artisan birdeye:init` to migrate the child businesses of each parent. 
+
 ### Migrate the Child Business Data
 Run the built-in CLI Command to migrate the accounts' child business into the ecosystem
 
@@ -82,6 +104,9 @@ $ php artisan birdeye:init
 ```
 You can run this command again to add new accounts' child businesses, by adding to the config and running again
 
+### Using the Trait
+
+## Usage
 ### Check an EndUser Customer into a business
 
 
@@ -104,16 +129,16 @@ If you discover any security related issues, please email angel@capeandbay.com i
 
 ## License
 
-Proprietary. Please see the [license file](license.md) for more information.
+MIT. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/capeandbay/shipyard.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/capeandbay/shipyard.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/capeandbay/shipyard/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/capeandbay/birdeye.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/capeandbay/birdeye.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/capeandbay/birdeye/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/capeandbay/shipyard
-[link-downloads]: https://packagist.org/packages/capeandbay/shipyard
-[link-travis]: https://travis-ci.org/capeandbay/shipyard
+[link-packagist]: https://packagist.org/packages/capeandbay/birdeye
+[link-downloads]: https://packagist.org/packages/capeandbay/birdeye
+[link-travis]: https://travis-ci.org/capeandbay/birdeye
 [link-styleci]: https://styleci.io/repos/12345678
 [link-author]: https://github.com/capeandbay
 [link-contributors]: ../../contributors
