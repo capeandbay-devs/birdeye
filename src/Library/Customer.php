@@ -44,7 +44,7 @@ class Customer extends feature
         $validated = Validator::make($payload, [
             'name' => 'bail|required',
             'emailId' => 'bail|required|email:rfc,dns',
-            'phone' => 'bail|required|numeric|size:10',
+            'phone' => 'bail|required|numeric',
             'smsEnabled' => 'bail|required|boolean',
         ]);
 
