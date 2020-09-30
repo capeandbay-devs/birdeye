@@ -82,17 +82,18 @@ class ImportChildBusinessesCommand extends BaseCommand
 
                         $business['parent_id'] = $parent_id;
                         $business['business_id'] = $business['id'];
-                        unset($business['id']);
 
                         if(!($saved_record = $this->businesses_model->findByBusinessId($business['id'])))
                         {
                             // Save the business data
+                            unset($business['id']);
                             $saved_record = new $this->businesses_model($business);
                             $saved_record->save();
                         }
                         else
                         {
                             // Update the business data
+                            unset($business['id']);
                             $saved_record->update($business);
                         }
                     }
