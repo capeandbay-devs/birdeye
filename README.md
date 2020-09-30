@@ -5,12 +5,19 @@
 BirdEye helps your business be found and chosen by new customers,
 be connected with your existing customers, and deliver the best end-to-end customer experience.
 
-This is an implementation of the BirdEye REST API designed to be used with Laravel PHP Framework v6, 7 and beyond.
+This is an implementation of the BirdEye REST API designed to be used with 
+Laravel PHP Framework v6, 7 and beyond.
 
-Cape & Bay is not affiliated with BirdEye. We prefer to build custom packages for our needs, but it may also
-help you or be a good reference for your own implementation.
+Cape & Bay is not affiliated with BirdEye. We prefer to build custom packages for our needs, 
+but it may also help you or be a good reference for your own implementation.
 
 ## Getting Started
+
+### Quick Links
+1. [Installation](#Installation)
+2. Seed the Database
+3. Using the Trait
+4. Usage
 
 ### Installation
 
