@@ -2,6 +2,9 @@
 
 namespace CapeAndBay\BirdEye\Console\Commands;
 
+use CapeAndBay\BirdEye\Facades\BirdEye;
+use CapeAndBay\BirdEye\Library\Business;
+
 class ImportChildBusinessesCommand extends BaseCommand
 {
     /**
@@ -39,6 +42,67 @@ class ImportChildBusinessesCommand extends BaseCommand
      */
     public function start()
     {
+        // Get the project's accounts or fail.
+        $accounts = $this->getAccounts();
 
+        if(count($accounts) > 0)
+        {
+            // foreach account
+            foreach($accounts as $name => $business_id)
+            {
+                $this->info('Processing '.$name);
+                $business_model = BirdEye::get('business', $business_id);
+
+                // call to BirdEye
+                $businesses = $business_model->child_businesses();
+
+                if(count($businesses) > 0)
+                {
+                    $this->info('BirdEye returned '.count($businesses).' children for '.$name);
+                    /**
+                     * STEPS
+                     * 4. Save or Update the business data
+                     * 5. Move on.
+                     */
+                }
+                else
+                {
+                    $this->info($name.' Does not have any child businesses. Moving on...');
+                }
+            }
+        }
+        else
+        {
+            $this->info('No accounts available. Ending.');
+        }
+    }
+
+    private function getAccounts() : array
+    {
+        $results = [];
+
+        // Check the config,
+        $single_id = config('birdeye.deets.parent_business_id');
+
+        if((is_null($single_id)) || (empty($single_id)))
+        {
+            //if deets.parent_business_id is empty, use accounts.
+            $multiple_ids = config('birdeye.accounts');
+            if(count($multiple_ids) > 0)
+            {
+                $results = $multiple_ids;
+            }
+            else
+            {
+                $this->info('No accounts found in single or doubles spot.');
+            }
+        }
+        else
+        {
+            // if deets.parent_business_id is populated, use that
+            $results[] = $single_id;
+        }
+
+        return $results;
     }
 }

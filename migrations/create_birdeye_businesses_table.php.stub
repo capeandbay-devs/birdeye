@@ -27,6 +27,7 @@ class CreateBirdeyeBusinessesTable extends Migration
             $table->unsignedBigInteger('users_sent')->default(0);
             $table->timestamps();
             $table->softDeletes();
+            $table->string('internal_id')->nullable();
         });
     }
 
