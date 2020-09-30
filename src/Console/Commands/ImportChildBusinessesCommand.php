@@ -58,7 +58,7 @@ class ImportChildBusinessesCommand extends BaseCommand
 
                 if(count($businesses) > 0)
                 {
-                    $this->info('BirdEye returned '.count($businesses).' children for '.$name, $businesses);
+                    $this->info('BirdEye returned '.count($businesses).' children for '.$name.'  - '. json_encode($businesses));
                     /**
                      * STEPS
                      * 4. Save or Update the business data
@@ -90,7 +90,7 @@ class ImportChildBusinessesCommand extends BaseCommand
             $multiple_ids = config('birdeye.accounts');
             if(count($multiple_ids) > 0)
             {
-                $this->info('Located multiple parents - ', $multiple_ids);
+                $this->info('Located multiple parents - '. json_encode($multiple_ids));
                 $results = $multiple_ids;
             }
             else
