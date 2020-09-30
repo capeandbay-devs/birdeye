@@ -105,6 +105,51 @@ $ php artisan birdeye:init
 You can run this command again to add new accounts' child businesses, by adding to the config and running again
 
 ### Using the Trait
+This package is bundle with a simple trait that when coupled with one of your project's 
+Eloquent models can link to any of the records in the `birdeye_businesses` table by
+use of an Eloquent relation.
+
+Start by Adding the trait to one of your project's models by including the dependancy and
+importing the trait `HasBirdEyeBusiness` like so -
+```php
+
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use CapeAndBay\BirdEye\Traits\HasBirdEyeBusiness;
+
+class StoreLocation extends Model
+{
+    use HasBirdEyeBusiness, SoftDeletes;
+   
+    public $birdeye_id_column = 'some_column';
+ 
+    /** Rest of the Logic assumed */
+}
+```
+
+Be sure to include `$birdeye_id_column` where `'some_column'` is the foreign key 
+to `birdeye_businesses.internal_id`
+<br>
+*Note - that in order to complete the relationship you will need to manually 
+enter the relationship id or roll your own automated method.*
+
+This exposes an elequent relation `birdeye_business()` that an be used in queries.
+
+To use the trait, peep this example and adapt -
+```php
+
+<?php
+    use App\LocationModel;
+
+    $location = LocationModel::find(1);  
+    $birdeye_biz = $location->birdeye_business()->first();
+```
+ The contents of the BirdEye Business are available to be used with rest of the package
+ Library to ping BirdEye to interface with them!
 
 ## Usage
 ### Check an EndUser Customer into a business
