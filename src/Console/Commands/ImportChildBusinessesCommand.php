@@ -51,14 +51,14 @@ class ImportChildBusinessesCommand extends BaseCommand
             foreach($accounts as $name => $business_id)
             {
                 $this->info('Processing '.$name);
-                $business_model = BirdEye::get('business', $business_id);
+                $business_model = BirdEye::get('business', $name);
 
                 // call to BirdEye
                 $businesses = $business_model->child_businesses();
 
                 if(count($businesses) > 0)
                 {
-                    $this->info('BirdEye returned '.count($businesses).' children for '.$name);
+                    $this->info('BirdEye returned '.count($businesses).' children for '.$name, $businesses);
                     /**
                      * STEPS
                      * 4. Save or Update the business data
@@ -90,6 +90,7 @@ class ImportChildBusinessesCommand extends BaseCommand
             $multiple_ids = config('birdeye.accounts');
             if(count($multiple_ids) > 0)
             {
+                $this->info('Located multiple parents - ', $multiple_ids);
                 $results = $multiple_ids;
             }
             else
@@ -100,7 +101,8 @@ class ImportChildBusinessesCommand extends BaseCommand
         else
         {
             // if deets.parent_business_id is populated, use that
-            $results[] = $single_id;
+            $this->info('Located single parent - '.$single_id);
+            $results['default_parent'] = $single_id;
         }
 
         return $results;
