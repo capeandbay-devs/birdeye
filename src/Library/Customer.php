@@ -4,7 +4,7 @@ namespace CapeAndBay\BirdEye\Library;
 
 use Illuminate\Support\Facades\Validator;
 
-class Customer extends feature
+class Customer extends Feature
 {
     protected $url = '/customer';
 
